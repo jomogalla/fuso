@@ -56,6 +56,7 @@ function addMarkers(locationData) {
             position: location.position,
             label: dayNumber,
             map: map,
+            title: location.time,
         });
     }
 }
