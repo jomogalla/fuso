@@ -9,12 +9,11 @@ fetch(`https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:j
         const locationData = json.table.rows;
         const sensibleData = makeDataSensible(locationData);
 
-        console.log(sensibleData)
-
         addMarkers(sensibleData);
+        setNumberOfNights(sensibleData.length);
     })
 
-
+// Transforms Google Sheet JSON data into an array of location objects
 function makeDataSensible(data) {
     let betterData = [];
 
@@ -47,6 +46,7 @@ function initMap() {
     });
 }
 
+// Iterates over the Google Sheet data and adds each location as a map marker
 function addMarkers(locationData) {
     // Add the Markers
     for (const [i, location] of locationData.entries()) {
@@ -59,4 +59,10 @@ function addMarkers(locationData) {
             title: location.time,
         });
     }
+}
+
+// Sets the number of nights in the HTML from Google Sheet data
+function setNumberOfNights(numNights) {
+    var nightElement = document.getElementById('night-number');
+    nightElement.innerHTML = numNights.toString();
 }
